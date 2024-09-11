@@ -21,45 +21,43 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfiguration {
-	
-	@Autowired
-	private JwtAuthFilter authFilter;
 
-	@Bean
-	UserDetailsService userDetailsService() {
-		return new UserInfoUserDetailsService();
-	}
-	
-	@Bean
-	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		return http.csrf(c -> c.disable())
-				.authorizeHttpRequests(req -> 
-				req.requestMatchers("/user/**").permitAll()
-				.requestMatchers("/movie/**").hasAnyAuthority("ROLE_ADMIN")
-				.requestMatchers("/show/**").hasAnyAuthority("ROLE_ADMIN")
-				.requestMatchers("/theater/**").hasAnyAuthority("ROLE_ADMIN")
-				.requestMatchers("/ticket/**").hasAnyAuthority("ROLE_USER")
-				.anyRequest().authenticated())
-			.sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-			.authenticationProvider(authenticationProvider())
-			.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class).build();
-	}
-	
-	@Bean
-	AuthenticationProvider authenticationProvider() {
-		DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-		authenticationProvider.setUserDetailsService(userDetailsService());
-		authenticationProvider.setPasswordEncoder(passwordEncoder());
-		return authenticationProvider;
-	}
-	
-	@Bean
-	PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-	
-	@Bean
-	AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
-		return config.getAuthenticationManager();
-	}
+    @Autowired
+    private JwtAuthFilter authFilter;
+
+    @Bean
+    UserDetailsService userDetailsService() {
+        return new UserInfoUserDetailsService();
+    }
+
+    @Bean
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        // Temporary modification for debugging
+        return http.csrf(csrf -> csrf.disable())
+                   .authorizeHttpRequests(auth -> 
+                       auth.anyRequest().permitAll())							// Allow all requests for debugging 
+                   .sessionManagement(session -> 
+                       session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                   .authenticationProvider(authenticationProvider())
+                   .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
+                   .build();
+    }
+
+    @Bean
+    AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+        authProvider.setUserDetailsService(userDetailsService());
+        authProvider.setPasswordEncoder(passwordEncoder());
+        return authProvider;
+    }
+
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
+    }
 }

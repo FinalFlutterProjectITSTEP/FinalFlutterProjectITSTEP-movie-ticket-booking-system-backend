@@ -10,5 +10,5 @@ import com.jts.movie.entities.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    Optional<User> findByEmailId(String emailId);;
+    Optional<User> findByEmailId(String emailId);
 }
