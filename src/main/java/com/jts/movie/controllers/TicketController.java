@@ -13,7 +13,7 @@ import com.jts.movie.response.TicketResponse;
 import com.jts.movie.services.TicketService;
 
 @RestController
-@RequestMapping("/ticket")
+@RequestMapping("api/ticket")
 public class TicketController {
 
 	@Autowired

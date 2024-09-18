@@ -12,7 +12,7 @@ import com.jts.movie.request.MovieRequest;
 import com.jts.movie.services.MovieService;
 
 @RestController
-@RequestMapping("/movie")
+@RequestMapping("api/movie")
 public class MovieController {
 	
 	@Autowired

@@ -13,7 +13,7 @@ import com.jts.movie.request.ShowSeatRequest;
 import com.jts.movie.services.ShowService;
 
 @RestController
-@RequestMapping("/show")
+@RequestMapping("api/show")
 public class ShowController {
 
 	@Autowired
