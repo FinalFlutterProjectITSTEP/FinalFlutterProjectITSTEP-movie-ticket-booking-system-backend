@@ -48,4 +48,7 @@ public class Show {
 
     @OneToMany(mappedBy = "show", cascade = CascadeType.ALL)
     private List<Ticket> ticketList = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "show", cascade = CascadeType.ALL)
+    private List<Payment> paymentList = new ArrayList<>();
 }
