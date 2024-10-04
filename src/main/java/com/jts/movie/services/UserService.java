@@ -80,7 +80,7 @@ public class UserService {
 	        throw new UserExist();
 	    }
 
-	    User newUser = UserConvertor.userDtoToUser(userRequest, passwordEncoder.encode("1234"));
+	    User newUser = UserConvertor.userDtoToUser(userRequest, passwordEncoder.encode(userRequest.getPassword()));
 	    userRepository.save(newUser);
 
 

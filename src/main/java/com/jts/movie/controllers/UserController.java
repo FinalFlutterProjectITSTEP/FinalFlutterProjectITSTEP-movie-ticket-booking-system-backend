@@ -82,7 +82,7 @@ public class UserController {
 	}
 
 	@PostMapping("/signin")
-	public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+	public ApiResponse<String> authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
 		System.out.println("Received AuthRequest: " + authRequest.getUsername());
 		  
 		Authentication authentication = authenticationManager.authenticate(
@@ -91,7 +91,12 @@ public class UserController {
 		System.out.println("Authentication: " + authentication.isAuthenticated());
 		
 		if (authentication.isAuthenticated()) {	
-			return jwtService.generateToken(authRequest.getUsername());
+			 ApiResponse<String> response = new ApiResponse<>(
+		                "success",
+		                "User profile Found",
+		                jwtService.generateToken(authRequest.getUsername())
+		            );
+			return response;
 		}
 	   
 
