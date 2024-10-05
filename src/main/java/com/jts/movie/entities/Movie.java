@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jts.movie.enums.Genre;
 import com.jts.movie.enums.Language;
 
@@ -51,5 +52,6 @@ public class Movie {
     private Language language;
 
     @OneToMany(mappedBy = "movie",cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Show> shows = new ArrayList<>();
 }

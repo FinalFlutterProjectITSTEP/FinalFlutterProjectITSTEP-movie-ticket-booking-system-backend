@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.sql.Date;
 
 @Entity
@@ -30,10 +32,12 @@ public class Ticket {
 
 	@ManyToOne
 	@JoinColumn
+	@JsonIgnore
 	private Show show;
 
 	@ManyToOne
 	@JoinColumn
+	@JsonIgnore
 	private User user;
 
 }

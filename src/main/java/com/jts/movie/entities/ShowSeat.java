@@ -1,5 +1,6 @@
 package com.jts.movie.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jts.movie.enums.SeatType;
 
 import jakarta.persistence.*;
@@ -27,5 +28,6 @@ public class ShowSeat {
 
     @ManyToOne
     @JoinColumn
+    @JsonIgnore
     private Show show;
 }

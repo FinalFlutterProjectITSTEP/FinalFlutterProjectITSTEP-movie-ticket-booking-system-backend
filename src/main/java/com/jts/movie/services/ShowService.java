@@ -12,6 +12,7 @@ import com.jts.movie.entities.Show;
 import com.jts.movie.entities.ShowSeat;
 import com.jts.movie.entities.Theater;
 import com.jts.movie.entities.TheaterSeat;
+import com.jts.movie.entities.User;
 import com.jts.movie.enums.SeatType;
 import com.jts.movie.exceptions.MovieDoesNotExists;
 import com.jts.movie.exceptions.ShowDoesNotExists;
@@ -34,6 +35,11 @@ public class ShowService {
 	@Autowired
 	private ShowRepository showRepository;
 
+	public List<Show> showlist(){
+		return showRepository.findAll();
+	}
+	
+	
 	public String addShow(ShowRequest showRequest) {
 		Show show = ShowConvertor.showDtoToShow(showRequest);
 

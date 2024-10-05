@@ -1,5 +1,6 @@
 package com.jts.movie.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.jts.movie.enums.SeatType;
 
 import jakarta.persistence.*;
@@ -27,6 +28,7 @@ public class TheaterSeat {
 
     @ManyToOne
     @JoinColumn
+    @JsonIgnore
     private Theater theater;
 }
 
